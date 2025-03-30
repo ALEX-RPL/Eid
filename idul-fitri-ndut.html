@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Hari Raya Idul Fitri untuk Ndut</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f8f9fa;
+            color: #495057;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffeaa7 0%, #a2d5f2 100%);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .card-title {
+            font-family: 'Pacifico', cursive;
+            color: #38b2ac;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        .photo-area {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #a2d5f2;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .photo-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .message {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        .ayat {
+            font-style: italic;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .ayat::before, .ayat::after {
+            content: '"';
+            font-size: 2rem;
+            color: #38b2ac;
+            position: absolute;
+        }
+        
+        .ayat::before {
+            top: 0;
+            left: 5px;
+        }
+        
+        .ayat::after {
+            bottom: 0;
+            right: 5px;
+        }
+        
+        .btn {
+            background-color: #38b2ac;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 10px rgba(0,0,0,0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .gombal-container {
+            display: none;
+            background-color: #fff8e1;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 5px solid #ffcc80;
+        }
+        
+        .poem-container {
+            background-color: #e3f2fd;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 5px solid #90caf9;
+        }
+        
+        .ketupat {
+            position: absolute;
+            font-size: 2rem;
+            color: #4cd137;
+            animation: falling 15s linear infinite;
+            z-index: 1;
+            opacity: 0.7;
+        }
+        
+        .music-control {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 100;
+            background-color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .play-btn-container {
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            z-index: 100;
+            background-color: #38b2ac;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .hug-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .hug-icon {
+            font-size: 10rem;
+            color: #ff6b6b;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .hug-message {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        /* Animation */
+        @keyframes falling {
+            from {
+                transform: translateY(-100px) rotate(0deg);
+            }
+            to {
+                transform: translateY(calc(100vh + 100px)) rotate(360deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card {
+                padding: 1.5rem;
+                width: 95%;
+            }
+            
+            .card-title {
+                font-size: 1.8rem;
+            }
+            
+            .photo-area {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        .message-special {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        .emoji-accent {
+            font-size: 1.3em;
+            vertical-align: middle;
+        }
+        
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', serif;
+            font-size: 1.3em;
+            line-height: 1.8;
+            direction: rtl;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="card">
+            <h1 class="card-title">Selamat Hari Raya Idul Fitri, Ndut Sayangku! 💕</h1>
+            <div class="photo-area" id="photo-container">
+                <img src="Screenshot 2025-03-07 202135.png" alt="Foto Ndut yang Super Imut">
+            </div>
+            
+            <div class="message">
+                <p>Untuk Ndut tersayang, si pipi gembul yang bikin gemes, 🥰</p>
+                <p>Di hari yang fitri ini, izinkan aku mengucapkan dengan sepenuh hati:</p>
+                <div class="arabic-text">
+                    تَقَبَّلَ اللهُ مِنَّا وَمِنْكُمْ صِيَامَنَا وَصِيَامَكُمْ
+                </div>
+                <p><b>Taqabbalallahu minna wa minkum, shiyamana wa shiyamakum.</b></p>
+                <p>Semoga Allah menerima amalan puasa kita dan memaafkan segala kesalahan kita.</p>
+                <p class="message-special">Seperti ketupat yang dibungkus daun kelapa, cintaku padamu terbungkus rapi dan semoga langgeng selamanya. Pipimu itu loh, bikin tanganku gemes pengen cubit terus! <span class="emoji-accent">😊💕</span></p>
+            </div>
+            
+            <div class="ayat">
+                Idul Fitri bukan sekadar perayaan, tetapi momen untuk saling memaafkan dan mempererat silaturahmi. Kita yang telah berpuasa sebulan penuh, kini kembali fitri seperti bayi yang baru lahir, suci dari dosa dan kesalahan.
+            </div>
+            
+            <p class="message">Ndut, kamu seperti ketupat, lembut di dalam, tapi selalu bikin kenyang hati. Kamu seperti opor ayam, selalu bikin kangen di hari spesial. Kamu seperti rendang, semakin lama semakin bikin jatuh cinta. <span class="emoji-accent">🥰</span></p>
+            
+            <p class="message">Tahu nggak kenapa kamu dipanggil Ndut? Karena kamu sudah mengisi penuh hatiku sampai nggak ada ruang buat yang lain. Dan aku suka, suka banget! <span class="emoji-accent">❤️</span></p>
+            
+            <div class="poem-container">
+                <h3>Puisi Kecil untuk Si Ndut</h3>
+                <p style="font-style: italic; margin-top: 10px;">
+                    Pipimu gembul menggemaskan<br>
+                    Senyummu manis bak kolak pisang<br>
+                    Di hari fitri penuh kebahagiaan<br>
+                    Kusimpan doa dalam genggaman<br><br>
+                    
+                    Bagai ketupat dan opor ayam<br>
+                    Kita berdua selalu bersama<br>
+                    Maafkan aku yang kadang jahil<br>
+                    Mencubit pipimu yang aduhai<br><br>
+                    
+                    Selamat Idul Fitri, Ndutku sayang<br>
+                    Semoga kita selalu bersama<br>
+                    Dalam suka, duka, dan tawa<br>
+                    Hingga surga menjemput kita
+                </p>
+            </div>
+            
+            <button class="btn" id="gombal-btn">Buka Gombalan Spesial</button>
+            <div class="gombal-container" id="gombal-container">
+                <h3>Gombalan Manis untuk Ndut 💘</h3>
+                <ul style="text-align: left; list-style-type: none; padding: 0;">
+                    <li style="margin: 10px 0;">💬 Kata orang, Idul Fitri itu identik dengan ketupat. Tapi bagiku, Idul Fitri itu identik denganmu, soalnya sama-sama bikin hati kenyang.</li>
+                    <li style="margin: 10px 0;">💬 Kalau kamu ketupat, aku santan kelapa. Biar kita selalu nyemplung bareng dalam kuah opor kehidupan.</li>
+                    <li style="margin: 10px 0;">💬 Tau gak kenapa aku seneng banget pas lebaran? Karena bisa lihat pipi Ndut makin gembul setelah makan ketupat. Gemesin banget sih! 🤏</li>
+                    <li style="margin: 10px 0;">💬 Ya Allah, kalau memang jodoh, jadikan Ndut ini orang yang akan kubuka pintu surga bersamanya. Kalau bukan jodoh, tolong hapus saja rasa gemasnya, bikin baper terus!</li>
+                    <li style="margin: 10px 0;">💬 Ndut, kamu tahu bedanya kamu sama coklat lebaran? Coklat bikin diabetes, kalau kamu bikin diabetes, darah tinggi, sama serangan jantung sekaligus. Gemesin banget soalnya!</li>
+                </ul>
+            </div>
+            
+            <button class="btn" id="hug-btn">Peluk Online</button>
+        </div>
+        
+        <div class="music-control" id="music-control">🎵</div>
+        <div class="play-btn-container" id="play-btn">▶️</div>
+    </div>
+    
+    <!-- Audio element for background music -->
+    <audio id="background-music" loop>
+        <source src=takbir.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <div class="hug-animation" id="hug-animation">
+        <div class="hug-icon">🤗</div>
+        <div class="hug-message">Ndut gemes, kalau pelukan beneran pasti aku cubit pipimu sampai merah!</div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('background-music');
+            const musicControl = document.getElementById('music-control');
+            const playBtn = document.getElementById('play-btn');
+            
+            // Initially hide music control until play is clicked
+            musicControl.style.display = 'none';
+            
+            // Play button functionality
+            playBtn.addEventListener('click', function() {
+                audio.play();
+                playBtn.style.display = 'none'; // Hide play button after click
+                musicControl.style.display = 'flex'; // Show music control
+            });
+            
+            // Toggle music function
+            musicControl.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    musicControl.textContent = '🎵';
+                } else {
+                    audio.pause();
+                    musicControl.textContent = '🔇';
+                }
+            });
+            
+            // Gombal button
+            const gombalBtn = document.getElementById('gombal-btn');
+            const gombalContainer = document.getElementById('gombal-container');
+            
+            gombalBtn.addEventListener('click', function() {
+                if (gombalContainer.style.display === 'block') {
+                    gombalContainer.style.display = 'none';
+                    gombalBtn.textContent = 'Buka Gombalan Spesial';
+                } else {
+                    gombalContainer.style.display = 'block';
+                    gombalBtn.textContent = 'Tutup Gombalan';
+                }
+            });
+            
+            // Hug animation
+            const hugBtn = document.getElementById('hug-btn');
+            const hugAnimation = document.getElementById('hug-animation');
+            
+            hugBtn.addEventListener('click', function() {
+                hugAnimation.style.opacity = '1';
+                setTimeout(function() {
+                    hugAnimation.style.opacity = '0';
+                }, 3000);
+            });
+            
+            // Create falling elements but fewer and slower
+            const container = document.getElementById('container');
+            const ketupatEmojis = ['🍚', '💚', '✨', '🌙', '🎉'];
+            
+            function createKetupatElement() {
+                const ketupat = document.createElement('div');
+                ketupat.className = 'ketupat';
+                ketupat.textContent = ketupatEmojis[Math.floor(Math.random() * ketupatEmojis.length)];
+                ketupat.style.left = Math.random() * 100 + 'vw';
+                ketupat.style.animationDuration = (Math.random() * 10 + 10) + 's'; // Slower animation
+                container.appendChild(ketupat);
+                
+                setTimeout(() => {
+                    ketupat.remove();
+                }, 20000);
+            }
+            
+            // Create ketupat periodically but less frequently
+            setInterval(createKetupatElement, 5000); // Every 5 seconds instead of 2
+            
+            // Create initial ketupat elements
+            for (let i = 0; i < 5; i++) {
+                createKetupatElement();
+            }
+        });
+    </script>
+</body>
+</html>
